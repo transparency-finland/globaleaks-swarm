@@ -2,6 +2,8 @@
 
 ## installing
 
+- Install Docker CE (https://docs.docker.com/install/)
+- Install Git (https://git-scm.com/downloads)
 - Clone this repository
 
   `git clone https://github.com/transparency-finland/globaleaks-swarm`
