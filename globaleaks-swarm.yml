@@ -1,0 +1,58 @@
+version: '3.2'
+
+services:
+  globaleaks:
+    image: transparencyfinland/globaleaks:dev-0.1
+    networks:
+     - globaleaks_net
+    build: .
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - globaleaks-data:/var/globaleaks
+
+  scope:
+    image: weaveworks/scope:1.9.0
+    networks:
+     - globaleaks_net
+    privileged: true
+    ports:
+     - 4040:4040 
+    labels:
+      - "works.weave.role=system"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+    command:
+      - "--probe.docker=true"
+
+  portainer:
+    image: portainer/portainer:latest
+    networks:
+     - globaleaks_net
+    restart: always
+    ports: 
+      - 9000:9000
+    volumes:
+       - portainer-data:/data
+       - "/var/run/docker.sock:/var/run/docker.sock:rw"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          memory: 512M
+      placement:
+        constraints: [node.role == manager]
+
+volumes:
+  globaleaks-data:
+  portainer-data:
+
+networks:
+  globaleaks_net:
