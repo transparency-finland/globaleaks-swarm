@@ -4,8 +4,11 @@
 
 - Pull this repository
 - Initialize swarm (sudo if needed)
+
 `docker swarm init`
+
 - inside the directory, run (sudo if needed) 
+
 `docker stack deploy --compose-file globaleaks-swarm.yml globaleaks`
 
 ## How to use
