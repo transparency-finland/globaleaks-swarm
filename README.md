@@ -2,7 +2,10 @@
 
 ## installing
 
-- Pull this repository
+- Clone this repository
+
+  `git clone https://github.com/transparency-finland/globaleaks-swarm`
+
 - Initialize swarm (sudo if needed)
 
   `docker swarm init`
